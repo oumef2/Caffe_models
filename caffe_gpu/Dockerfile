@@ -1,6 +1,5 @@
 FROM nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
-LABEL maintainer 
-
+ 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         cmake \
@@ -27,8 +26,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     
 
 WORKDIR /caffe
-0
-ENV CLONE_TAG=1.0
 
 RUN pip install --upgrade pip && \
     pip install numpy  && pip install matplotlib && pip install h5py && \

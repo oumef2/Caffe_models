@@ -16,7 +16,7 @@ def convert(path,start, N):
 
     filename = None
     for filename in range (start,N+start):
-        with h5py.File('ResNet50_BT/Dataset/raw_data/{}/{}.mat'.format(path,filename), 'r') as f:
+        with h5py.File('ResNet50_BT/Dataset/{}/{}.mat'.format(path,filename), 'r') as f:
 
             img = f['cjdata']['image']
             img = np .array(img, dtype=np.float32)
@@ -58,5 +58,5 @@ def convert(path,start, N):
     print ("--- Done ---")
     print("{} dataset size: {}".format(path, N))
 
-convert("train_1-1532",1,1532)
-convert("test_2299-3064",2299, 3064-2299)
+convert("train_1-2000",1,2000)
+convert("test_2001-3000",2001, 1000)
