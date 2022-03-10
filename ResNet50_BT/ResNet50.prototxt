@@ -12,7 +12,7 @@ layer {
     scale: 0.00390625
   }
   data_param {
-    source: "ResNet50_BT/Dataset/train_1-1532_lmdb"
+    source: "ResNet50_BT/Dataset/train_1-2000_lmdb"
     batch_size: 1
     backend: LMDB
   }
@@ -29,7 +29,7 @@ layer {
     scale: 0.00390625
   }
   data_param {
-    source: "ResNet50_BT/Dataset/test_2299-3064_lmdb"
+    source: "ResNet50_BT/Dataset/test_2001-3000_lmdb"
     batch_size: 1
     backend: LMDB
   }
