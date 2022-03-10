@@ -12,11 +12,11 @@ def convert(path,start, N):
 
     #set the datamap 10times greater that what we actually need 
 
-    map_size = X.nbytes * 10
+    map_size = X.nbytes * 100
 
     filename = None
     for filename in range (start,N+start):
-        with h5py.File('/home/ouma/Desktop/Caffe_models/ResNet50_BT/Dataset/raw_data/{}/{}.mat'.format(path,filename), 'r') as f:
+        with h5py.File('ResNet50_BT/Dataset/raw_data/{}/{}.mat'.format(path,filename), 'r') as f:
 
             img = f['cjdata']['image']
             img = np .array(img, dtype=np.float32)
@@ -24,16 +24,22 @@ def convert(path,start, N):
             img = img.astype(np.uint8)
             img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
             img = cv2.resize(img, (224, 224))
-            img =np.reshape(img, (3,224,224))
-            #plt.imshow(np.reshape(img,(224,224,3)))
+            #print (img.shape)
+            img = np.transpose(img,(2,1,0))
+            #print(img.shape)
+            #plt.imshow(np.transpose(img,(2, 1, 0)))
             #plt.show()
-            X[filename-start] = img
+            X[filename-start] = img.astype(np.uint8)
 
             label = f['cjdata']['label'][0][0]
-            y[filename-start] = label.astype(np.int64)
+            y[filename-start] = (label-1).astype(np.int64)
             
     print ("--- data loaded ---")
-
+    print(X.shape)
+    plt.imshow(np.transpose(X[500],(2, 1, 0)))
+    plt.show()
+    print(y)
+    print(y.shape)
     print("--- converting data to lmdb ---")
     env = lmdb.open('ResNet50_BT/Dataset/{}_lmdb'.format(path), map_size=map_size)
     with env.begin(write=True) as txn:
