@@ -3,7 +3,7 @@ import lmdb
 import caffe
 import matplotlib.pyplot as plt
 
-env = lmdb.open('ResNet50_BT/Dataset/train_1-1532_lmdb', readonly=True)
+env = lmdb.open('ResNet50_BT/Dataset/train_1-2000_lmdb', readonly=True)
 with env.begin() as txn:
     raw_datum = txn.get(b'00000000')
 

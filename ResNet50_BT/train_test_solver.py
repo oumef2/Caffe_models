@@ -4,16 +4,19 @@ import matplotlib.pyplot as plt
 
 from pylab import *
 
-#caffe.set_device(0)
-caffe.set_mode_cpu()
+USE_GPU = True
 
+caffe.set_device(0)
+caffe.set_mode_gpu()
+
+caffe.set_random_seed(0) # recent modification, remove if it doesn't work
+np.random.seed(0)
 # recent modification, remove if it doesn't work
-
 print("Initialized caffe")
 
 solver = caffe.SGDSolver('ResNet50_BT/solver.prototxt')
 
-#[print((k, v[0].data.shape)) for k, v in solver.net.params.items()]
+[print((k, v[0].data.shape)) for k, v in solver.net.params.items()]
 [print((k, v.data.shape)) for k, v in solver.net.blobs.items()]
 
 solver.solve()
